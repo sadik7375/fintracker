@@ -6,6 +6,9 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\FineController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,9 +17,8 @@ Route::get('/', function () {
 // Protect all routes using auth middleware
 Route::middleware('auth')->group(function () {
     // Dashboard Route
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard');
+
 
     // Members Routes
     Route::resource('members', MemberController::class);
@@ -35,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Fine calculator
+    Route::get('finecalculator', [FineController::class, 'calculator'])->name('fine');
 });
 
 // Authentication Routes
