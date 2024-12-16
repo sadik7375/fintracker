@@ -8,7 +8,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\FineController;
-
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,7 +40,8 @@ Route::middleware('auth')->group(function () {
 
     //Fine calculator
     Route::get('finecalculator', [FineController::class, 'calculator'])->name('fine');
-});
+});Route::get('/fine-statistics', [ReportController::class, 'fineStatistics'])->name('reports.fine_statistics');
+
 
 // Authentication Routes
 require __DIR__.'/auth.php';

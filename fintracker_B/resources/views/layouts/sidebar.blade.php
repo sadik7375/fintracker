@@ -90,15 +90,33 @@
 
 
 
-                                <li class="active">
-                                    <a href="">
+
+                                <li class="pcoded-hasmenu">
+                                    <a href="#">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Fine And Report</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                    <li class="active">
+                                    <a href="{{route('fine')}}">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Member Payment Request</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Fine</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
+                                <li class="active">
+                                    <a href="{{route('reports.fine_statistics')}}">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Fine Report</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                             
 
-
+                            
+                                 </ul>
+                                </li>
 
                               
 

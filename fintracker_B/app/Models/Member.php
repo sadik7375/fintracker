@@ -18,4 +18,12 @@ class Member extends Model
         'member_assign_date',
         'photo',
     ];
+
+
+
+     // Relationship with Deposit model
+     public function deposits()
+     {
+         return $this->hasMany(Deposit::class, 'member_id');
+     }
 }

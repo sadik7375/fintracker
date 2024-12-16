@@ -78,7 +78,7 @@ class DepositController extends Controller
     $deposits = Deposit::where('member_id', $memberId)->get();
     $member = Member::findOrFail($memberId);
 
-    return view('deposit.member_deposits', compact('deposits', 'member'));
+    return view('deposit.show', compact('deposits', 'member'));
 }
 }
 

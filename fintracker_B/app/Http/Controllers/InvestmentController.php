@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Investment;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,6 @@ class InvestmentController extends Controller
         $investments = Investment::all();
         return view('investments.index', compact('investments'));
     }
-    
 
     /**
      * Show the form for creating a new resource.
@@ -23,7 +23,6 @@ class InvestmentController extends Controller
     {
         return view('investments.create');
     }
-    
 
     /**
      * Store a newly created resource in storage.
@@ -36,18 +35,19 @@ class InvestmentController extends Controller
             'category' => 'required|string',
             'investment_date' => 'required|date',
         ]);
-    
+
         Investment::create($request->all());
-    
+
         return redirect()->route('investments.index')->with('success', 'Investment added successfully!');
     }
-    
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $investment = Investment::findOrFail($id);
+        return view('investments.show', compact('investment'));
     }
 
     /**
@@ -55,7 +55,8 @@ class InvestmentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $investment = Investment::findOrFail($id);
+        return view('investments.edit', compact('investment'));
     }
 
     /**
@@ -69,9 +70,9 @@ class InvestmentController extends Controller
             'category' => 'required|string',
             'investment_date' => 'required|date',
         ]);
-    
+
         $investment->update($request->all());
-    
+
         return redirect()->route('investments.index')->with('success', 'Investment updated successfully!');
     }
 
@@ -79,10 +80,9 @@ class InvestmentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Investment $investment)
-{
-    $investment->delete();
+    {
+        $investment->delete();
 
-    return redirect()->route('investments.index')->with('success', 'Investment deleted successfully!');
-}
-
+        return redirect()->route('investments.index')->with('success', 'Investment deleted successfully!');
+    }
 }

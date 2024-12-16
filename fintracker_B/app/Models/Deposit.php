@@ -16,32 +16,15 @@ class Deposit extends Model
     ];
 
     // Relationship with Member model
-    public function member()
-    {
-        return $this->belongsTo(Member::class);
-    }
+      // Relationship with Member model
+      public function member()
+      {
+          return $this->belongsTo(Member::class, 'member_id');
+      }
 
     public static function totalDepositsByMember($memberId)
     {
         return self::where('member_id', $memberId)->sum('amount');
     }
 
-    public function calculateFine($dueDate)
-    {
-        $fineRule = FineRule::first(); // Fetch the current fine rule
-        $today = now();
-        $fine = 0;
-
-        if ($today > $dueDate) {
-            $overdueDays = $today->diffInDays($dueDate);
-
-            // Calculate fines
-            $fixedFine = $fineRule->fixed_fine;
-            $percentageFine = ($this->amount * $fineRule->percentage_fine / 100) * $overdueDays;
-
-            $fine = $fixedFine + $percentageFine;
-        }
-
-        return $fine;
-    }
 }
