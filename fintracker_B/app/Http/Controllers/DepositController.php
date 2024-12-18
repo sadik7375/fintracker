@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Deposit;
 use App\Models\Member;
 use Illuminate\Http\Request;
-
+use PDF;
 class DepositController extends Controller
 {
     // Display a listing of deposits
@@ -80,5 +80,33 @@ class DepositController extends Controller
 
     return view('deposit.show', compact('deposits', 'member'));
 }
+
+public function generateSlip($id)
+{
+    $member = Member::with('deposits')->findOrFail($id);
+
+    // Load the Blade view for the payment slip and pass data
+    $pdf = PDF::loadView('deposit.slip', [
+        'member' => $member,
+        'deposits' => $member->deposits
+    ]);
+
+    // Download the generated PDF
+    return $pdf->download('payment_slip_' . $member->id . '.pdf');
+}
+
+public function showSlip($id)
+{
+    // Fetch the deposits of the specific member
+    $deposits = Deposit::where('member_id', $id)->get();
+    $member = Member::findOrFail($id);
+
+    return view('deposit.slip', compact('deposits', 'member'));
+  
+}
+
+
+
+
 }
 

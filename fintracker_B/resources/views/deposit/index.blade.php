@@ -36,8 +36,11 @@
                                         <td>{{ $deposit->transaction_no }}</td>
                                         <td>{{ $deposit->transfer_method }}</td>
                                         <td>
-                                           <a href="{{ route('deposits.show', $deposit->member->id) }}" class="btn btn-info btn-sm">View Deposits</a>
+                                            <a href="{{ route('deposits.show', $deposit->member->id) }}" class="btn btn-info btn-sm">View Deposits</a>
                                             <a href="{{ route('deposits.edit', $deposit->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="{{ route('deposits.slip', $deposit->member->id) }}" class="btn btn-info btn-sm">View Slip</a>
+                                          
+
                                             <form action="{{ route('deposits.destroy', $deposit->id) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')

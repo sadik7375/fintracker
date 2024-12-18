@@ -43,5 +43,12 @@ Route::middleware('auth')->group(function () {
 });Route::get('/fine-statistics', [ReportController::class, 'fineStatistics'])->name('reports.fine_statistics');
 
 
+
+
+
+Route::get('/deposits/{id}/payment-slip', [DepositController::class, 'showSlip'])->name('deposits.slip');
+Route::get('/deposits/{id}/download-slip', [DepositController::class, 'generateSlip'])->name('deposits.download_slip');
+
+
 // Authentication Routes
 require __DIR__.'/auth.php';

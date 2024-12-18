@@ -16,6 +16,7 @@ class dashboardController extends Controller
         $totalDeposit = Deposit::sum('amount'); // Sum of all deposits
         $totalExpense = Expense::sum('amount'); // Sum of all expenses
         $totalInvestment = Investment::sum('amount'); // Sum of all investments
+        
     
         // Pass the data to the view
         return view('dashboard', compact('totalDeposit', 'totalExpense', 'totalInvestment'));
