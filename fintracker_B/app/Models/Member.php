@@ -26,4 +26,11 @@ class Member extends Model
      {
          return $this->hasMany(Deposit::class, 'member_id');
      }
+
+     // Member model
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

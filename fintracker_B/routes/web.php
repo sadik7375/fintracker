@@ -9,7 +9,7 @@ use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\FineController;
 use App\Http\Controllers\ReportController;
-
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
     // Investments Routes
     Route::resource('investments', InvestmentController::class);
 
+    Route::post('/investments/{id}/update-returns', [InvestmentController::class, 'updateInvestmentReturns'])->name('investments.update-returns');
+
+
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -44,11 +47,12 @@ Route::middleware('auth')->group(function () {
 
 
 
+Route::get('/investment-status', [InvestmentController::class, 'showInvestmentStatus'])->name('investment.status');
 
 
 Route::get('/deposits/{id}/payment-slip', [DepositController::class, 'showSlip'])->name('deposits.slip');
 Route::get('/deposits/{id}/download-slip', [DepositController::class, 'generateSlip'])->name('deposits.download_slip');
 
-
+Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout'); 
 // Authentication Routes
 require __DIR__.'/auth.php';

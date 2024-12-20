@@ -76,9 +76,9 @@
                                     </a>
                                 </li>
                                 <li class="active">
-                                    <a href="">
+                                    <a href="{{route('investment.status')}}">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">ROI Calculation</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Profit and Loss</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>

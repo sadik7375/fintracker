@@ -21,8 +21,8 @@
                                     <th>Amount</th>
                                     <th>Investment Date</th>
                                     <th>Maturity Date</th>
-                                    <th>ROI</th>
-                                    <th>Target</th>
+                                    <th>ROI(%)</th>
+                                    <th>Target(%)</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -35,8 +35,8 @@
                                         <td>{{ $investment->amount }}</td>
                                         <td>{{ $investment->investment_date }}</td>
                                         <td>{{ $investment->maturity_date ?? 'N/A' }}</td>
-                                        <td>{{ $investment->roi ?? 'N/A' }}</td>
-                                        <td>{{ $investment->target ?? 'N/A' }}</td>
+                                        <td>{{ $investment->roi ?? 'N/A' }}%</td>
+                                        <td>{{ $investment->target ?? 'N/A' }}%</td>
                                         <td>
                                             <a href="{{ route('investments.show', $investment->id) }}" class="btn btn-info btn-sm">View</a>
                                             <a href="{{ route('investments.edit', $investment->id) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -56,5 +56,51 @@
         </div>
     </div>
 </div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="card-block">
+    <canvas id="roiChart" style="height:517px;"></canvas>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('roiChart').getContext('2d');
+    const roiData = @json($monthlyROI);
+    const labels = roiData.map(data => `${data.month}-${data.year}`);
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Average ROI',
+            data: roiData.map(data => data.average_roi),
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }, {
+            label: 'Target ROI',
+            data: roiData.map(data => data.average_target),
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.1
+        }]
+    };
+
+    new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
+</script>
+
+
+
 
 @endsection

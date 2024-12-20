@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Models\Deposit;
+use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 class MemberController extends Controller
 {
     // Display a listing of the resource
@@ -27,6 +28,7 @@ class MemberController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|unique:members,phone',
             'email' => 'nullable|email|unique:members,email',
+            'password' => 'required|min:6',
             'nid' => 'required|unique:members,nid',
             'address' => 'required|string',
             'nominee_name' => 'required|string',
@@ -36,12 +38,22 @@ class MemberController extends Controller
             'photo' => 'nullable|image|max:2048', // Max 2MB image
         ]);
 
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
         // Handle photo upload
         if ($request->hasFile('photo')) {
             $validated['photo'] = $request->file('photo')->store('photos', 'public');
         }
 
-        Member::create($validated);
+        // Create the member with other details
+    $member = new Member($request->all());
+    $member->user_id = $user->id; // Assuming your Member model has a 'user_id' field
+    $member->save();
 
         return redirect()->route('members.index')->with('success', 'Member created successfully.');
     }

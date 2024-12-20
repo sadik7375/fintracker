@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2); // Initial investment amount
             $table->string('category')->after('amount')->nullable(); // Add category columns
             $table->decimal('roi', 10, 2)->nullable(); // Return on investment (ROI)
+            $table->decimal('returns', 10, 2)->nullable(); // Actual returns
             $table->decimal('target', 10, 2)->nullable(); // Target return
             $table->string('category'); // Category (e.g., stock, real estate)
             $table->date('investment_date'); // Investment start date

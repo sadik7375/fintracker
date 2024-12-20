@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('member_id')->unique();
             $table->date('member_assign_date');
             $table->string('photo')->nullable(); // Store file path for photo
+           
+            
             $table->timestamps();
         });
     }
