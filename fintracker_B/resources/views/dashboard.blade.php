@@ -54,27 +54,40 @@
                 </div>
 
                 <!-- Statistics Chart -->
-                <div class="col-md-12 col-xl-8">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>Statestics</h5>
-                                                        <div class="card-header-left ">
-                                                        </div>
-                                                        <div class="card-header-right">
-                                                            <ul class="list-unstyled card-option">
-                                                                <li><i class="icofont icofont-simple-left "></i></li>
-                                                                <li><i class="icofont icofont-maximize full-card"></i></li>
-                                                                <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                                                <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                                                <li><i class="icofont icofont-error close-card"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-block">
-                                                        <div id="statestics-chart" style="height:517px;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>                 
+                <div class="card">
+        <div class="card-header">
+            <h5>Profit/Loss Graph</h5>
+        </div>
+        <div class="card-block">
+            <canvas id="profitLossChart" style="height:400px;"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('profitLossChart').getContext('2d');
+            const data = @json($investmentChartData);
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Profit/Loss',
+                        data: data.values,
+                        backgroundColor: data.colors
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>         
                                          
                                                 <!-- Data widget End -->
             </div>

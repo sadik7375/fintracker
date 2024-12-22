@@ -10,6 +10,11 @@ use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\FineController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\UserDepositController;
+use App\Http\Controllers\MemberApplicationController;
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,7 +23,10 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     // Dashboard Route
     Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard');
+  
+    Route::get('/showdeposit', [ UserDepositController::class, 'showUserDeposit'])->name('show.userdeposit');
 
+   
 
     // Members Routes
     Route::resource('members', MemberController::class);
@@ -52,6 +60,20 @@ Route::get('/investment-status', [InvestmentController::class, 'showInvestmentSt
 
 Route::get('/deposits/{id}/payment-slip', [DepositController::class, 'showSlip'])->name('deposits.slip');
 Route::get('/deposits/{id}/download-slip', [DepositController::class, 'generateSlip'])->name('deposits.download_slip');
+
+
+
+
+
+Route::post('/send-deposit-slip/{memberId}/{depositId}', [DepositController::class, 'sendDepositSlipEmail'])->name('send.deposit-slip');
+
+
+Route::get('member-applications/create', [MemberApplicationController::class, 'create'])->name('member-applications.create');
+Route::post('member-applications', [MemberApplicationController::class, 'store'])->name('member-applications.store');
+Route::get('member-applications', [MemberApplicationController::class, 'index'])->name('member-applications.index');
+
+
+
 
 Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout'); 
 // Authentication Routes

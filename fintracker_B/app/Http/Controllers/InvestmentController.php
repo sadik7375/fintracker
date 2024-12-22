@@ -126,8 +126,11 @@ class InvestmentController extends Controller
             })->toArray(),
         ];
     
-        return view('investments.investment_status', compact('investments', 'investmentChartData'));
+        return view('profitLoss.profitloss',compact('investments', 'investmentChartData'));
     }
+
+
+  
     
 
 

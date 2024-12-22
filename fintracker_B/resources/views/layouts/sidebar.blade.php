@@ -10,7 +10,7 @@
                            
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                
+                            
                             <li class="active">
                                     <a href="{{ route('dashboard') }}">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
@@ -18,7 +18,29 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
+
                              
+
+                                @if ( Auth::user()->role == 'user')
+                                <li class="active">
+                                    <a href="{{ route('member-applications.create') }}">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Application</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                @endif
+
+
+                                @if ( Auth::user()->role == 'user')
+                                <li class="active">
+                                    <a href="{{ route('show.userdeposit') }}">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">My Deposit</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                @endif
 
                             @if ( Auth::user()->role == 'admin')
                                   <li class="active">
@@ -43,13 +65,7 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="active">
-                                    <a href="">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Member total deposits</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
+                             
                              
 
                             
@@ -80,14 +96,7 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="active">
-                                    <a href="{{route('investment.status')}}">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Profit and Loss</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                             
+                               
 
                             
                                  </ul>
@@ -119,6 +128,27 @@
                             
                                  </ul>
                                 </li>
+                                
+                                <li class="active">
+                                    <a href="{{ route('investment.status') }}">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Profit Loss</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+
+
+                                @if ( Auth::user()->role == 'admin')
+                                <li class="active">
+                                    <a href="{{ route('member-applications.index') }}">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">View Application</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+
+                                @endif
+                             
 
 
  @endif

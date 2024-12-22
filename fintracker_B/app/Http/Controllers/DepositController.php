@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Mail;
 use App\Models\Deposit;
 use App\Models\Member;
 use Illuminate\Http\Request;
@@ -105,7 +105,18 @@ public function showSlip($id)
   
 }
 
+public function sendDepositSlipEmail($memberId, $depositId)
+{
+    $member = Member::findOrFail($memberId);
+    $deposit = Deposit::findOrFail($depositId);
 
+    Mail::send('deposit.email_slip', ['member' => $member, 'deposit' => $deposit], function ($message) use ($member) {
+        $message->to($member->email);
+        $message->subject('Your Deposit Slip');
+    });
+
+    return back()->with('success', 'Deposit slip sent successfully to ' . $member->email);
+}
 
 
 }

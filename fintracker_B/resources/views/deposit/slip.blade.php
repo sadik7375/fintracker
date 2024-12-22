@@ -50,8 +50,14 @@
                 @endforelse
             </tbody>
         </table>
+         <div style="display:flex;justify-content: space-between">
+        <button style="font-size:11px" onclick="downloadPDF()" class="btn btn-success no-print ">Download Slip</button>
+        <form action="{{ route('send.deposit-slip', ['memberId' => $deposit->member->id, 'depositId' => $deposit->id]) }}" method="POST">
+                                             @csrf
+                                              <button type="submit" class="btn btn-primary btn-sm">Send Slip</button>
+                                                </form>
 
-        <button onclick="downloadPDF()" class="btn btn-success no-print ">Download Slip</button>
+                                                </div>
         <!-- Footer -->
         <!-- <div class="row mt-8">
             <div class="col-6 text-center"><strong>Deposit By</strong></div>
